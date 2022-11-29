@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head><meta charset="UTF-8"><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let r;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",r=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){let n=e[t];Object.defineProperty(e,t,{get:()=>n||function(){},set(r){e["rocket"+t]=n=r}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript,r=document.createRange(),i=n.parentElement;let o=e.get(n);void 0===o&&(o=n.nextSibling,e.set(n,o));const a=document.createDocumentFragment();r.setStart(a,0),a.appendChild(r.createContextualFragment(t)),i.insertBefore(a,o)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mousemove","touchmove","touchstart","touchend","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();</script>
+	
+		<title>New Detox &#8211; Fórmula Exclusiva</title><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%20Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CMontserrat%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CPoppins%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&amp;display=swap" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%20Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CMontserrat%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CPoppins%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&amp;display=swap" media="print" onload="this.media='all'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%20Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CMontserrat%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CPoppins%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&amp;display=swap" /></noscript><link rel="stylesheet" href="wp-content/cache/min/1/c7aacc6a75ef6c46d1d7503d667bbd02.css" media="all" data-minify="1" />
+<meta name='robots' content='max-image-preview:large' />
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link rel="alternate" type="application/rss+xml" title="New Detox &raquo; Feed" href="feed/index.rss" />
+<link rel="alternate" type="application/rss+xml" title="New Detox &raquo; Feed de comentários" href="comments/feed/index.rss" />
+<style>img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	
+
+<style id='global-styles-inline-css'>body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;}:where(.is-layout-flex){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+
+
+
+
+
+
+
+
+
+
+<script type="rocketlazyloadscript" src='wp-includes/js/jquery/jquery.min%EF%B9%96ver=3.6.1.js' id='jquery-core-js' defer></script>
+<script type="rocketlazyloadscript" src='wp-includes/js/jquery/jquery-migrate.min%EF%B9%96ver=3.3.2.js' id='jquery-migrate-js' defer></script>
+<script type="rocketlazyloadscript" src='wp-content/plugins/smartfunnel/assets/jquery-ui-1.12.0.custom/jquery-ui.min%EF%B9%96ver=6.1.1.js' id='jquery-ui-core-js' defer></script>
+<link rel="https://api.w.org/" href="wp-json/index.json" /><link rel="alternate" type="application/json" href="wp-json/wp/v2/pages/2712.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="index%EF%B9%96rsd.html" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="wp-includes/wlwmanifest.xml" />
+<meta name="generator" content="WordPress 6.1.1" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='index.html' />
+<link rel="alternate" type="application/json+oembed" href="wp-json/oembed/1.0/embed%EF%B9%96url=https%EF%B9%95%EA%A4%B7%EA%A4%B7newdetox.com.br%EA%A4%B7.json" />
+<link rel="alternate" type="text/xml+oembed" href="wp-json/oembed/1.0/embed%EF%B9%96url=https%EF%B9%95%EA%A4%B7%EA%A4%B7newdetox.com.br%EA%A4%B7&amp;format=xml.xml" />
+<!-- Google tag (gtag.js) -->
+<script type="rocketlazyloadscript" async src="https://www.googletagmanager.com/gtag/js?id=UA-179531037-1"></script>
+<script type="rocketlazyloadscript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179531037-1');
+</script>
+
+<script type="rocketlazyloadscript">
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+
+  ttq.load('CBNFEHBC77UBFBMLO9TG');
+	ttq.track('ViewContent') 
+  ttq.page();
+}(window, document, 'ttq');
+</script>
+		<script type="rocketlazyloadscript">
+		(function(h,o,t,j,a,r){
+			h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+			h._hjSettings={hjid:2748211,hjsv:5};
+			a=o.getElementsByTagName('head')[0];
+			r=o.createElement('script');r.async=1;
+			r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+			a.appendChild(r);
+		})(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
+		</script>
+				<script>
+			document.documentElement.className = document.documentElement.className.replace( 'no-js', 'js' );
+		</script>
+				<style>.no-js img.lazyload { display: none; }
+			figure.wp-block-image img.lazyloading { min-width: 150px; }
+							.lazyload, .lazyloading { opacity: 0; }
+				.lazyloaded {
+					opacity: 1;
+					transition: opacity 400ms;
+					transition-delay: 0ms;
+				}
+					</style>
+		<link rel="icon" href="wp-content/uploads/2021/12/cropped-fav-32x32.png" sizes="32x32" />
+<link rel="icon" href="wp-content/uploads/2021/12/cropped-fav-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="wp-content/uploads/2021/12/cropped-fav-180x180.png" />
+<meta name="msapplication-TileImage" content="https://newdetox.com.br/wp-content/uploads/2021/12/cropped-fav-270x270.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /></head>
+<body class="home page-template page-template-elementor_canvas page page-id-2712 elementor-default elementor-template-canvas elementor-kit-30 elementor-page elementor-page-2712">
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-dark-grayscale"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0 0.49803921568627" /><feFuncG type="table" tableValues="0 0.49803921568627" /><feFuncB type="table" tableValues="0 0.49803921568627" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-grayscale"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0 1" /><feFuncG type="table" tableValues="0 1" /><feFuncB type="table" tableValues="0 1" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-purple-yellow"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0.54901960784314 0.98823529411765" /><feFuncG type="table" tableValues="0 1" /><feFuncB type="table" tableValues="0.71764705882353 0.25490196078431" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-blue-red"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0 1" /><feFuncG type="table" tableValues="0 0.27843137254902" /><feFuncB type="table" tableValues="0.5921568627451 0.27843137254902" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-midnight"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0 0" /><feFuncG type="table" tableValues="0 0.64705882352941" /><feFuncB type="table" tableValues="0 1" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-magenta-yellow"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0.78039215686275 1" /><feFuncG type="table" tableValues="0 0.94901960784314" /><feFuncB type="table" tableValues="0.35294117647059 0.47058823529412" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-purple-green"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0.65098039215686 0.40392156862745" /><feFuncG type="table" tableValues="0 1" /><feFuncB type="table" tableValues="0.44705882352941 0.4" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-blue-orange"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0.098039215686275 1" /><feFuncG type="table" tableValues="0 0.66274509803922" /><feFuncB type="table" tableValues="0.84705882352941 0.41960784313725" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg>		<div data-elementor-type="wp-page" data-elementor-id="2712" class="elementor elementor-2712">
+									<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-top-section elementor-element elementor-element-7c9ee69 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="7c9ee69" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;sticky&quot;:&quot;top&quot;,&quot;sticky_on&quot;:[&quot;desktop&quot;,&quot;tablet&quot;,&quot;mobile&quot;],&quot;sticky_offset&quot;:0,&quot;sticky_effects_offset&quot;:0}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-12f75fa" data-id="12f75fa" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-dc5128b elementor-widget elementor-widget-image" data-id="dc5128b" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+			<style>/*! elementor - v3.7.6 - 15-09-2022 */
+.elementor-widget-image{text-align:center}.elementor-widget-image a{display:inline-block}.elementor-widget-image a img[src$=".svg"]{width:48px}.elementor-widget-image img{vertical-align:middle;display:inline-block}</style>												<img width="1826" height="259" decoding="async"  title="logo-cores-originais (1)" alt="logo-cores-originais (1)" data-src="wp-content/uploads/2022/11/logo-cores-originais-1.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-f640a03 elementor-widget elementor-widget-html" data-id="f640a03" data-element_type="widget" data-widget_type="html.default">
+				<div class="elementor-widget-container">
+			<!-- Google tag (gtag.js) -->
+<script type="rocketlazyloadscript" async src="https://www.googletagmanager.com/gtag/js?id=G-XQ36G32Q3P"></script>
+<script type="rocketlazyloadscript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XQ36G32Q3P');
+</script>		</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-top-section elementor-element elementor-element-71e92297 elementor-section-full_width elementor-section-height-min-height elementor-section-content-middle elementor-section-height-default elementor-section-items-middle" data-id="71e92297" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+							<div class="elementor-background-overlay"></div>
+							<div class="elementor-container elementor-column-gap-no">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-156e1c3a" data-id="156e1c3a" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-c2659ae elementor-widget elementor-widget-html" data-id="c2659ae" data-element_type="widget" data-widget_type="html.default">
+				<div class="elementor-widget-container">
+			<script type="rocketlazyloadscript" data-rocket-type="text/javascript">
+(function(e,t,o,n,p,r,i){e.visitorGlobalObjectAlias=n;e[e.visitorGlobalObjectAlias]=e[e.visitor
+GlobalObjectAlias]||function(){(e[e.visitorGlobalObjectAlias].q=e[e.visitorGlobalObjectAlias]
+.q||[]).push(arguments)};e[e.visitorGlobalObjectAlias].l=(new
+Date).getTime();r=t.createElement("script");r.src=o;r.async=true;i=t.getElementsByTagNa
+me("script")[0];i.parentNode.insertBefore(r,i)})(window,document,"https://diffuser-cdn.app-u
+s1.com/diffuser/diffuser.js","vgo");
+vgo('setAccount', '1002563848');
+vgo('setTrackByDefault', true);
+vgo('process');
+</script>		</div>
+				</div>
+				<div class="elementor-element elementor-element-4115da32 elementor-hidden-desktop elementor-hidden-tablet elementor-widget elementor-widget-spacer" data-id="4115da32" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+			<style>/*! elementor - v3.7.6 - 15-09-2022 */
+.elementor-column .elementor-spacer-inner{height:var(--spacer-size)}.e-container{--container-widget-width:100%}.e-container>.elementor-widget-spacer{width:var(--container-widget-width,var(--spacer-size));-ms-flex-item-align:stretch;align-self:stretch;-ms-flex-negative:0;flex-shrink:0}.e-container>.elementor-widget-spacer>.elementor-widget-container,.e-container>.elementor-widget-spacer>.elementor-widget-container>.elementor-spacer{height:100%}.e-container>.elementor-widget-spacer>.elementor-widget-container>.elementor-spacer>.elementor-spacer-inner{height:var(--container-widget-height,var(--spacer-size))}</style>		<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-top-section elementor-element elementor-element-76aa2dcb elementor-section-full_width elementor-section-height-default elementor-section-height-default" data-id="76aa2dcb" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+							<div class="elementor-background-overlay"></div>
+							<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-4d14ad1" data-id="4d14ad1" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-2b62c58 elementor-widget elementor-widget-heading" data-id="2b62c58" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<style>/*! elementor - v3.7.6 - 15-09-2022 */
+.elementor-heading-title{padding:0;margin:0;line-height:1}.elementor-widget-heading .elementor-heading-title[class*=elementor-size-]>a{color:inherit;font-size:inherit;line-height:inherit}.elementor-widget-heading .elementor-heading-title.elementor-size-small{font-size:15px}.elementor-widget-heading .elementor-heading-title.elementor-size-medium{font-size:19px}.elementor-widget-heading .elementor-heading-title.elementor-size-large{font-size:29px}.elementor-widget-heading .elementor-heading-title.elementor-size-xl{font-size:39px}.elementor-widget-heading .elementor-heading-title.elementor-size-xxl{font-size:59px}</style><h1 class="elementor-heading-title elementor-size-default">Emagreça muito mais rápido!</h1>		</div>
+				</div>
+				<div class="elementor-element elementor-element-1e67c138 elementor-hidden-desktop elementor-hidden-tablet elementor-widget elementor-widget-heading" data-id="1e67c138" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">SEM DIETAS MALUCAS  <span style="font-weight: 800; font-size: 25px; color: #fbfbfb">OU EXERCÍCIOS FÍSICOS</span></h1>		</div>
+				</div>
+				<div class="elementor-element elementor-element-3301f0de elementor-hidden-mobile elementor-widget elementor-widget-heading" data-id="3301f0de" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">SEM DIETAS MALUCAS  <span style="font-weight: 800; font-size: 45px; color: #fbfbfb">OU EXERCÍCIOS FÍSICOS</span></h1>		</div>
+				</div>
+				<div class="elementor-element elementor-element-6810ccf4 elementor-hidden-desktop elementor-hidden-tablet elementor-widget elementor-widget-heading" data-id="6810ccf4" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">APROVEITE NOSSA OFERTA DE<br> <span class="fundo"><B>BLACK FRIDAY</B></SPAN>, É POR TEMPO LIMITADO!</h1>		</div>
+				</div>
+				<div class="elementor-element elementor-element-3f1fc911 elementor-hidden-desktop elementor-hidden-tablet elementor-aspect-ratio-169 elementor-widget elementor-widget-video" data-id="3f1fc911" data-element_type="widget" data-settings="{&quot;youtube_url&quot;:&quot;https:\/\/youtu.be\/u1KOagon26Y&quot;,&quot;video_type&quot;:&quot;youtube&quot;,&quot;controls&quot;:&quot;yes&quot;,&quot;aspect_ratio&quot;:&quot;169&quot;}" data-widget_type="video.default">
+				<div class="elementor-widget-container">
+			<style>/*! elementor - v3.7.6 - 15-09-2022 */
+.elementor-widget-video .elementor-widget-container{overflow:hidden;-webkit-transform:translateZ(0);transform:translateZ(0)}.elementor-widget-video .elementor-open-inline .elementor-custom-embed-image-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background-size:cover;background-position:50%}.elementor-widget-video .elementor-custom-embed-image-overlay{cursor:pointer;text-align:center}.elementor-widget-video .elementor-custom-embed-image-overlay:hover .elementor-custom-embed-play i{opacity:1}.elementor-widget-video .elementor-custom-embed-image-overlay img{display:block;width:100%}.elementor-widget-video .e-hosted-video .elementor-video{-o-object-fit:cover;object-fit:cover}.e-container>.elementor-widget-video{width:var(--container-widget-width,100%)}</style>		<div class="elementor-wrapper elementor-fit-aspect-ratio elementor-open-inline">
+			<div class="elementor-video"></div>		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-15af0bd0 elementor-hidden-mobile elementor-widget elementor-widget-heading" data-id="15af0bd0" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">APROVEITE NOSSA OFERTA DE <span class="fundo"><B>BLACK FRIDAY</B></SPAN>, É POR TEMPO LIMITADO!</h1>		</div>
+				</div>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-inner-section elementor-element elementor-element-2e73068c elementor-section-full_width elementor-section-height-default elementor-section-height-default" data-id="2e73068c" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-18431024" data-id="18431024" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-63eb7a07 elementor-view-default elementor-widget elementor-widget-icon" data-id="63eb7a07" data-element_type="widget" data-widget_type="icon.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-icon-wrapper">
+			<div class="elementor-icon">
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Capa_1" x="0px" y="0px" width="31.11px" height="31.11px" viewBox="0 0 31.11 31.11" style="enable-background:new 0 0 31.11 31.11;" xml:space="preserve"><g>	<g>		<path d="M15.554,4.055c-6.075,0-11,5.149-11,11.5c0,6.35,4.925,11.5,11,11.5c6.075,0,11-5.148,11-11.5   C26.555,9.204,21.629,4.055,15.554,4.055z M15.554,25.522c-5.258,0-9.534-4.47-9.534-9.966c0-5.497,4.276-9.967,9.534-9.967   c5.258,0,9.534,4.471,9.534,9.967S20.812,25.522,15.554,25.522z"></path>		<path d="M2.204,7.916C0.987,7.916,0,9.231,0,10.854c0,1.36,0.697,2.494,1.638,2.828c-0.007,0.037-0.022,0.071-0.022,0.11v8.813   c0,0.325,0.263,0.589,0.588,0.589c0.324,0,0.587-0.264,0.587-0.589v-8.813c0-0.039-0.015-0.073-0.022-0.11   c0.941-0.334,1.638-1.468,1.638-2.828C4.407,9.232,3.421,7.916,2.204,7.916z"></path>		<path d="M30.793,7.916c-0.174,0-0.314,0.141-0.314,0.315v3.651H29.85V8.231c0-0.175-0.141-0.315-0.314-0.315   s-0.314,0.141-0.314,0.315v3.651h-0.629V8.231c0-0.175-0.142-0.315-0.314-0.315c-0.174,0-0.314,0.141-0.314,0.315v3.651h-0.63   V8.231c0-0.175-0.141-0.315-0.313-0.315c-0.174,0-0.315,0.141-0.315,0.315v3.776c0,0.029,0.009,0.055,0.017,0.082   c0.069,1.217,0.728,1.883,1.612,2.076c-0.003,0.023-0.014,0.044-0.014,0.067v8.226c0,0.326,0.263,0.589,0.587,0.589   s0.588-0.263,0.588-0.589v-8.226c0-0.023-0.011-0.044-0.014-0.067c0.885-0.192,1.543-0.858,1.613-2.076   c0.006-0.026,0.017-0.052,0.017-0.082V8.231C31.108,8.057,30.967,7.916,30.793,7.916z"></path>		<path d="M12.114,18.093c-1.297-1.681-1.507-4.672,0.049-6.164C9.051,12.437,10.511,16.915,12.114,18.093z"></path>		<path d="M15.554,6.355c-4.851,0-8.8,4.128-8.8,9.201c0,5.072,3.949,9.2,8.8,9.2s8.799-4.128,8.799-9.2   C24.354,10.483,20.405,6.355,15.554,6.355z M15.554,21.448c0,0-6.521-2.525-6.06-7.666c0.357-3.995,5.272-3.307,6.06-1.033   c0.788-2.273,5.704-2.962,6.06,1.033C22.075,18.922,15.554,21.448,15.554,21.448z"></path>	</g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>			</div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-4ca3b011 elementor-widget elementor-widget-heading" data-id="4ca3b011" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Sem Precisar Parar de  <span style="font-weight: 800; font-size: 16px; color: #030303">Comer o que Você Gosta</span></h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-6389272 elementor-view-default elementor-widget elementor-widget-icon" data-id="6389272" data-element_type="widget" data-widget_type="icon.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-icon-wrapper">
+			<div class="elementor-icon">
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0" y="0" viewBox="0 0 1707 1707" style="enable-background:new 0 0 512 512" xml:space="preserve"><g><g id="Layer_x0020_1" fill="#000002"><path d="m103 965c-58-4-103-52-103-110 0-59 45-107 103-111z" fill="#ffffff" data-original="#000002"></path><path d="m1115 966h-523v-222h523z" fill="#ffffff" data-original="#000002"></path><path d="m1604 744c57 4 103 52 103 111 0 58-46 106-103 110z" fill="#ffffff" data-original="#000002"></path><path d="m1272 1397c-72 0-130-59-130-131v-825c0-72 58-131 130-131s131 59 131 131v825c0 72-59 131-131 131zm0-266c7 0 13-6 13-13v-529c0-8-6-13-13-13s-13 5-13 13v529c0 7 6 13 13 13z" fill="#ffffff" data-original="#000002"></path><path d="m1467 1212c-13 0-25-3-37-7v-703c12-5 24-7 37-7 61 0 110 49 110 110v497c0 60-49 110-110 110z" fill="#ffffff" data-original="#000002"></path><path d="m434 1397c-72 0-130-59-130-131v-825c0-72 58-131 130-131 73 0 131 59 131 131v825c0 72-58 131-131 131zm0-266c8 0 13-6 13-13v-529c0-8-5-13-13-13-7 0-12 5-12 13v529c0 7 5 13 12 13z" fill="#ffffff" data-original="#000002"></path><path d="m239 1212c-60 0-110-50-110-110v-497c0-61 50-110 110-110 14 0 26 2 38 7v703c-12 4-24 7-38 7z" fill="#ffffff" data-original="#000002"></path></g></g></svg>			</div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-775f62ce elementor-widget elementor-widget-heading" data-id="775f62ce" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default"><span style="font-weight: 800; font-size: 16px; color: #030303">Sem Precisar se Matar </span>com Exercícios Chatos e Cansativos...</h2>		</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-7d815a68" data-id="7d815a68" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-5825a4d7 elementor-hidden-mobile elementor-aspect-ratio-169 elementor-widget elementor-widget-video" data-id="5825a4d7" data-element_type="widget" data-settings="{&quot;youtube_url&quot;:&quot;https:\/\/youtu.be\/u1KOagon26Y&quot;,&quot;video_type&quot;:&quot;youtube&quot;,&quot;controls&quot;:&quot;yes&quot;,&quot;aspect_ratio&quot;:&quot;169&quot;}" data-widget_type="video.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-wrapper elementor-fit-aspect-ratio elementor-open-inline">
+			<div class="elementor-video"></div>		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-6cd0b1c" data-id="6cd0b1c" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-752e11ce elementor-view-default elementor-widget elementor-widget-icon" data-id="752e11ce" data-element_type="widget" data-widget_type="icon.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-icon-wrapper">
+			<div class="elementor-icon">
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g transform="matrix(0.8,0,0,0.8,51.096874999999955,51.19999999999999)"><path d="m72.617188 173.039062-25.007813 16.671876 14.480469 21.71875h-62.089844v30.058593h62.089844l-14.480469 21.71875 25.007813 16.675781 35.613281-53.421874zm0 0" fill="#ffffff" data-original="#000000" class=""></path><path d="m510.96875 211.429688h-62.089844l14.480469-21.71875-25.007813-16.671876-35.617187 53.421876 35.617187 53.421874 25.007813-16.675781-14.480469-21.71875h62.089844zm0 0" fill="#ffffff" data-original="#000000" class=""></path><path d="m386.640625 271.542969c-16.839844-34.914063-18.777344-75.097657-4.980469-111.792969-13.648437 5.660156-28.355468 8.597656-43.5 8.597656-23.8125 0-46.585937-7.273437-65.855468-21.027344-5.0625-3.613281-10.878907-5.523437-16.820313-5.523437-5.945313 0-11.761719 1.910156-16.820313 5.519531-19.269531 13.757813-42.046874 21.03125-65.902343 21.03125-15.117188 0-29.808594-2.9375-43.457031-8.597656 13.796874 36.695312 11.863281 76.878906-4.976563 111.792969zm0 0" fill="#ffffff" data-original="#000000" class=""></path><path d="m300.570312 301.601562v75.140626h-30.058593v-75.140626h-30.054688v75.140626h-30.058593v-75.140626h-104.988282c-18.140625 26.535157-28.65625 58.058594-30.09375 90.171876h56.277344c42.683594 0 85.425781 9.78125 123.878906 28.316406 38.453125-18.535156 81.195313-28.316406 123.878906-28.316406h56.300782c-1.433594-32.113282-11.953125-63.636719-30.09375-90.171876zm0 0" fill="#ffffff" data-original="#000000" class=""></path><path d="m124.363281 122.855469c13.609375 9.714843 30.324219 15.4375 48.398438 15.4375h.042969c18.074218 0 34.789062-5.722657 48.398437-15.4375 10.378906-7.410157 22.332031-11.117188 34.28125-11.117188s23.898437 3.707031 34.28125 11.117188c13.605469 9.714843 30.324219 15.4375 48.398437 15.4375h.042969c18.070313 0 34.789063-5.722657 48.394531-15.4375 10.28125-7.335938 18.777344-16.953125 24.746094-28.09375 6.117188-12.175781 9.449219-25.714844 9.449219-39.628907v-55.132812h-330.625v55.132812c0 13.96875 3.363281 27.558594 9.527344 39.769532 5.964843 11.082031 14.429687 20.648437 24.664062 27.953125zm0 0" fill="#ffffff" data-original="#000000" class=""></path><path d="m77.441406 421.828125 15.027344 90.171875h147.972656v-65.757812c-33.886718-15.976563-71.386718-24.414063-108.847656-24.414063zm0 0" fill="#ffffff" data-original="#000000" class=""></path><path d="m270.5 446.242188v65.757812h148l15.027344-90.171875h-54.175782c-37.460937 0-74.960937 8.4375-108.851562 24.414063zm0 0" fill="#ffffff" data-original="#000000" class=""></path></g></svg>			</div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-5941ac73 elementor-widget elementor-widget-heading" data-id="5941ac73" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default"><span style="font-weight: 800; font-size: 16px; color: #030303">Resultados Satisfatórios</span> já nas Primeiras Semanas de Uso</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-5e649de0 elementor-view-default elementor-widget elementor-widget-icon" data-id="5e649de0" data-element_type="widget" data-widget_type="icon.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-icon-wrapper">
+			<div class="elementor-icon">
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0" y="0" viewBox="0 0 2000 2000" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g transform="matrix(1.2,0,0,1.2,-199.99699707031232,-199.99058227539058)"><g><g><g><path d="m1309.98 1037.66c-11.81 57.14-44.94 106.11-93.31 137.9l-263.65 173.34-.02.02-240.29-363.11 264.77-174.07c36.76-24.17 78.23-35.73 119.26-35.73 70.9 0 140.48 34.51 182.25 98.04 31.79 48.37 42.8 106.47 30.99 163.61z" fill="#ffffff" data-original="#000000"></path><path d="m900.73 1383.29-263.62 173.32c-100.31 65.94-235.57 38-301.51-62.31-31.79-48.36-42.8-106.47-30.99-163.61s44.94-106.11 93.31-137.9l262.55-172.62z" fill="#ffffff" data-original="#000000"></path><path d="m1699.98 753.62c0 253.38-183.55 390.94-361.04 523.96-96.93 72.65-189.19 141.8-252.69 227.86-25.46-34.45-57.47-68.69-97.9-104.91l262.69-172.69c62.33-40.97 105.02-104.02 120.2-177.53 15.2-73.49 1-148.3-39.98-210.62-40.97-62.33-104.02-105.02-177.51-120.2-73.51-15.2-148.3-1-210.63 39.98l-390.36 256.65c-53.95-80.01-80.23-166.17-80.23-262.51 0-207.6 127.29-310.43 246.41-337.45 142.5-32.32 281.95 28.58 339.12 148.11 5.19 10.85 16.17 17.78 28.21 17.78s23.02-6.93 28.21-17.78c57.17-119.53 196.62-180.43 339.12-148.11 119.1 27.03 246.38 129.86 246.38 337.46z" fill="#ffffff" data-original="#000000"></path></g></g></g></g></svg>			</div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-4292bacf elementor-widget elementor-widget-heading" data-id="4292bacf" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Resultado Eficaz e  <span style="font-weight: 800; font-size: 16px; color: #030303"> Livre de Efeitos Colaterais</span></h2>		</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<div class="elementor-element elementor-element-258c257f elementor-align-center blob elementor-hidden-mobile elementor-widget elementor-widget-button" data-id="258c257f" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="#checkout" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">comprar com <b>desconto  <span style="font-weight: 800; font-size: 26px; color: #fffc00">black friday</SPAN></b></span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-7b0dedec elementor-align-center blob elementor-hidden-desktop elementor-hidden-tablet elementor-widget elementor-widget-button" data-id="7b0dedec" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="#checkout" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">comprar com <b>desconto <BR> <span style="font-weight: 800; font-size: 26px; color: #fffc00">black friday</SPAN></b></span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-2f6b8163 elementor-widget elementor-widget-image" data-id="2f6b8163" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="1024" height="128" decoding="async"  title="selos-compra-segura" alt="selos-compra-segura" data-src="wp-content/uploads/2022/11/selos-compra-segura.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-top-section elementor-element elementor-element-28c64ec elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="28c64ec" data-element_type="section">
+							<div class="elementor-background-overlay"></div>
+							<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-466db72a" data-id="466db72a" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-inner-section elementor-element elementor-element-3da234c0 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="3da234c0" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-887b27c" data-id="887b27c" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-52dc6dc5 elementor-hidden-mobile elementor-widget elementor-widget-heading" data-id="52dc6dc5" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">COMO <span style="color: #6BB434;">NEW DETOX</span><br>TE FAZ EMAGRECER?</h1>		</div>
+				</div>
+				<div class="elementor-element elementor-element-6f7eabca elementor-hidden-desktop elementor-hidden-tablet elementor-widget elementor-widget-heading" data-id="6f7eabca" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">COMO <span style="color: #6BB434;">NEW DETOX</span><br>TE FAZ EMAGRECER?</h1>		</div>
+				</div>
+				<div class="elementor-element elementor-element-21770fde elementor-widget elementor-widget-heading" data-id="21770fde" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">New Detox reúne todos os ingredientes de uma receita na medida certa. Tudo isso feito com tecnologia avançada, que te fará <u><b>emagrecer muito mais rápido</b></u>. Você não precisará ter o trabalho de preparar receitas complicadas, nem comprar ingredientes e chás caros e difíceis de encontrar. Você terá tudo pronto. Basta apenas tomar 2 cápsulas por dia e, em poucas semanas, verá o resultado.</h1>		</div>
+				</div>
+				<div class="elementor-element elementor-element-20d212e5 elementor-hidden-desktop elementor-hidden-tablet elementor-widget elementor-widget-image" data-id="20d212e5" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="800" height="564" decoding="async"  title="sdzfee" alt="sdzfee" data-src="wp-content/uploads/2022/11/sdzfee.webp" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-1d8eb343 elementor-align-left blob elementor-hidden-mobile elementor-widget elementor-widget-button" data-id="1d8eb343" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="#checkout" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">comprar com <b>desconto  <span style="font-weight: 800; font-size: 20px; color: #fffc00">black friday</SPAN></b></span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-14c06b44 elementor-align-center blob elementor-hidden-desktop elementor-hidden-tablet elementor-widget elementor-widget-button" data-id="14c06b44" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="#checkout" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">comprar com <b>desconto <BR> <span style="font-weight: 800; font-size: 26px; color: #fffc00">black friday</SPAN></b></span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-64040230 elementor-widget elementor-widget-image" data-id="64040230" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="1024" height="128" decoding="async"  title="selos-compra-segura" alt="selos-compra-segura" data-src="wp-content/uploads/2022/11/selos-compra-segura.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-11c16608" data-id="11c16608" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-19f6afe7 elementor-hidden-mobile elementor-widget elementor-widget-image" data-id="19f6afe7" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="800" height="564" decoding="async"  title="sdzfee" alt="sdzfee" data-src="wp-content/uploads/2022/11/sdzfee.webp" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-top-section elementor-element elementor-element-375c44a8 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="375c44a8" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;gradient&quot;}">
+							<div class="elementor-background-overlay"></div>
+							<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-304d3ac3" data-id="304d3ac3" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-inner-section elementor-element elementor-element-592b7e4b elementor-section-full_width elementor-section-height-default elementor-section-height-default" data-id="592b7e4b" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-5a7bee4c" data-id="5a7bee4c" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-349710a7 elementor-hidden-mobile elementor-widget elementor-widget-image" data-id="349710a7" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="1088" height="1270" decoding="async"  title="sdfeeeda (1)" alt="sdfeeeda (1)" data-src="wp-content/uploads/2022/11/sdfeeeda-1.webp" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-25401c2" data-id="25401c2" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-6a520d03 elementor-widget elementor-widget-heading" data-id="6a520d03" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">VOCÊ MAIS<br> <span style="color: #1d1d1d;">MAGRA E DISPOSTA</span><br> EM POUCAS SEMANAS</h1>		</div>
+				</div>
+				<div class="elementor-element elementor-element-28de13cb elementor-widget elementor-widget-heading" data-id="28de13cb" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">New Detox é um poderoso suplemento que acelera o seu metabolismo, diminui o inchaço e a retenção dos líquidos do seu corpo, elimina as substâncias inflamatórias e te faz emagrecer de forma rápida, saudável e definitiva.</h1>		</div>
+				</div>
+				<div class="elementor-element elementor-element-7bff880c elementor-hidden-desktop elementor-hidden-tablet elementor-widget elementor-widget-image" data-id="7bff880c" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="1088" height="1422" decoding="async"  title="mulher mobile" alt="mulher mobile" data-src="wp-content/uploads/2022/11/mulher-mobile.webp" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-e8ddbe3 elementor-align-center blob elementor-hidden-desktop elementor-hidden-tablet elementor-widget elementor-widget-button" data-id="e8ddbe3" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="#checkout" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">comprar com <b>desconto <BR> <span style="font-weight: 800; font-size: 26px; color: #fffc00">black friday</SPAN></b></span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-41fd86a0 elementor-align-left blob elementor-hidden-mobile elementor-widget elementor-widget-button" data-id="41fd86a0" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="#checkout" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">comprar com <b>desconto  <span style="font-weight: 800; font-size: 20px; color: #fffc00">black friday</SPAN></b></span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-2222d13a elementor-widget elementor-widget-image" data-id="2222d13a" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="1024" height="128" decoding="async"  title="selos-compra-segura" alt="selos-compra-segura" data-src="wp-content/uploads/2022/11/selos-compra-segura.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-top-section elementor-element elementor-element-4936129e elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="4936129e" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-406cb47f" data-id="406cb47f" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-60385bf4 elementor-hidden-mobile elementor-widget elementor-widget-heading" data-id="60385bf4" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">QUEM JÁ EXPERIMENTOU<br>
+<span style="color: #6BB434;">EMAGRECEU E RECOMENDA</span></h1>		</div>
+				</div>
+				<div class="elementor-element elementor-element-3fb560f6 elementor-hidden-desktop elementor-hidden-tablet elementor-widget elementor-widget-heading" data-id="3fb560f6" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">QUEM JÁ EXPERIMENTOU
+<span style="color: #6BB434;">EMAGRECEU E RECOMENDA</span></h1>		</div>
+				</div>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-inner-section elementor-element elementor-element-3f585e72 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="3f585e72" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-4a010ebd" data-id="4a010ebd" data-element_type="column">
+			<div class="elementor-widget-wrap">
+									</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-26919441" data-id="26919441" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-671760ff elementor-widget__width-initial elementor-widget-mobile__width-initial elementor-skin-carousel elementor-arrows-yes elementor-widget elementor-widget-media-carousel" data-id="671760ff" data-element_type="widget" data-settings="{&quot;slides_per_view&quot;:&quot;1&quot;,&quot;slides_to_scroll&quot;:&quot;1&quot;,&quot;skin&quot;:&quot;carousel&quot;,&quot;effect&quot;:&quot;slide&quot;,&quot;show_arrows&quot;:&quot;yes&quot;,&quot;speed&quot;:500,&quot;autoplay&quot;:&quot;yes&quot;,&quot;autoplay_speed&quot;:5000,&quot;loop&quot;:&quot;yes&quot;,&quot;pause_on_hover&quot;:&quot;yes&quot;,&quot;pause_on_interaction&quot;:&quot;yes&quot;,&quot;space_between&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:10,&quot;sizes&quot;:[]},&quot;space_between_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:10,&quot;sizes&quot;:[]},&quot;space_between_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:10,&quot;sizes&quot;:[]}}" data-widget_type="media-carousel.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-swiper">
+			<div class="elementor-main-swiper swiper-container">
+				<div class="swiper-wrapper">
+											<div class="swiper-slide">
+									<div class="elementor-carousel-image" style="background-image: url(wp-content/uploads/2022/11/depoimentos-1.jpg)">
+					</div>
+								</div>
+											<div class="swiper-slide">
+									<div class="elementor-carousel-image" style="background-image: url(wp-content/uploads/2022/11/dep-2.jpg)">
+					</div>
+								</div>
+											<div class="swiper-slide">
+									<div class="elementor-carousel-image" style="background-image: url(wp-content/uploads/2022/11/dep-3.jpg)">
+					</div>
+								</div>
+									</div>
+																				<div class="elementor-swiper-button elementor-swiper-button-prev">
+							<svg aria-hidden="true" class="e-font-icon-svg e-eicon-chevron-left"><use xlink:href="#eicon-chevron-left" /></svg>							<span class="elementor-screen-only">Previous</span>
+						</div>
+						<div class="elementor-swiper-button elementor-swiper-button-next">
+							<svg aria-hidden="true" class="e-font-icon-svg e-eicon-chevron-right"><use xlink:href="#eicon-chevron-right" /></svg>							<span class="elementor-screen-only">Next</span>
+						</div>
+												</div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-37925f1d elementor-align-center blob elementor-hidden-desktop elementor-hidden-tablet elementor-widget elementor-widget-button" data-id="37925f1d" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="#checkout" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">comprar com <b>desconto <BR> <span style="font-weight: 800; font-size: 26px; color: #fffc00">black friday</SPAN></b></span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-703ab6cf" data-id="703ab6cf" data-element_type="column">
+			<div class="elementor-widget-wrap">
+									</div>
+		</div>
+							</div>
+		</section>
+				<div class="elementor-element elementor-element-3e8d2bd9 elementor-align-center blob elementor-hidden-mobile elementor-widget elementor-widget-button" data-id="3e8d2bd9" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="#checkout" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">comprar com <b>desconto  <span style="font-weight: 800; font-size: 20px; color: #fffc00">black friday</SPAN></b></span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-62bf3ccc elementor-widget elementor-widget-image" data-id="62bf3ccc" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="1024" height="128" decoding="async"  title="selos-compra-segura preto" alt="selos-compra-segura preto" data-src="wp-content/uploads/2022/11/selos-compra-segura-preto.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-top-section elementor-element elementor-element-4251d4a4 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="4251d4a4" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+							<div class="elementor-background-overlay"></div>
+							<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-345e23d9" data-id="345e23d9" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-inner-section elementor-element elementor-element-57d906b5 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="57d906b5" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-420375b9" data-id="420375b9" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-703846a8 elementor-widget elementor-widget-heading" data-id="703846a8" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">CONHEÇA A FORMULAÇÃO<BR>DO <span style="color: #6BB434;">NEW DETOX</span><br></h1>		</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-inner-section elementor-element elementor-element-5802d2c7 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="5802d2c7" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-20 elementor-inner-column elementor-element elementor-element-e2fdb4" data-id="e2fdb4" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-5c299567 elementor-widget elementor-widget-image" data-id="5c299567" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="128" height="128" decoding="async"  title="agaragar" alt="agaragar" data-src="wp-content/uploads/elementor/thumbs/agaragar-pgxraz09kol52s2ykgvypcoycyl2fpiegxpy311ibk.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-2157c27f elementor-widget elementor-widget-heading" data-id="2157c27f" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Ágar-agar</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-37e12f97 elementor-widget elementor-widget-heading" data-id="37e12f97" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">Tem uma ação diurética, ajuda o corpo a eliminar líquidos, reduz e previne a celulite de forma muito eficaz.</h1>		</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-20 elementor-inner-column elementor-element elementor-element-7e4d8fe" data-id="7e4d8fe" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-7b89477a elementor-widget elementor-widget-image" data-id="7b89477a" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="128" height="128" decoding="async"  title="psyllium" alt="psyllium" data-src="wp-content/uploads/elementor/thumbs/psyllium-pgxrb8enh0y0avpb1ky8eabkataqkojpu88svsnklc.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-6644f4a8 elementor-widget elementor-widget-heading" data-id="6644f4a8" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Psyllium</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-53938f05 elementor-widget elementor-widget-heading" data-id="53938f05" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">Em contato com a água, a semente aumenta de tamanho, formando um “bolo” que, ao ser consumido, garante saciedade.</h1>		</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-20 elementor-inner-column elementor-element elementor-element-3f42bce" data-id="3f42bce" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-15090fdd elementor-widget elementor-widget-image" data-id="15090fdd" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="128" height="128" decoding="async"  title="espirulina" alt="espirulina" data-src="wp-content/uploads/elementor/thumbs/espirulina-pgxrb3pgiurkotw4t0x3jti9bvxwi7125kzdheujgg.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-1665a5af elementor-widget elementor-widget-heading" data-id="1665a5af" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Espirulina</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-7321e7b9 elementor-widget elementor-widget-heading" data-id="7321e7b9" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">Aumenta a saciedade devido à sua alta concentração de proteínas e nutrientes, fazendo com que o corpo funcione melhor.</h1>		</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-20 elementor-inner-column elementor-element elementor-element-2001564e" data-id="2001564e" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-5bd0854a elementor-widget elementor-widget-image" data-id="5bd0854a" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="128" height="128" decoding="async"  title="beterraba" alt="beterraba" data-src="wp-content/uploads/elementor/thumbs/beterraba-pgxrb0vxycnpq0089hp7uc7vjqbsv3pv570x1kypz4.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-14789ebc elementor-widget elementor-widget-heading" data-id="14789ebc" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Fibra de beterraba</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-3755c095 elementor-widget elementor-widget-heading" data-id="3755c095" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">Contribui para o emagrecimento, devido à quantidade de fibras, que atuam no trato gastrointestinal, ajudando na absorção e na eliminação de parte das gorduras ingeridas.</h1>		</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-20 elementor-inner-column elementor-element elementor-element-1608e716" data-id="1608e716" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-4d1d9316 elementor-widget elementor-widget-image" data-id="4d1d9316" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="128" height="128" decoding="async"  title="cromo" alt="cromo" data-src="wp-content/uploads/elementor/thumbs/cromo-pgxrb2rmc0qad7xhyiigzbqsqi2jahxbtgbw04vxmo.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-b8387cb elementor-widget elementor-widget-heading" data-id="b8387cb" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Cromo</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-7f138817 elementor-widget elementor-widget-heading" data-id="7f138817" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">Faz com que o organismo utilize mais carboidratos como fonte de energia e absorva mais proteínas ajudando no de massa muscular e perda de peso, principalmente na região abdominal.</h1>		</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-inner-section elementor-element elementor-element-161ec7c4 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="161ec7c4" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-20 elementor-inner-column elementor-element elementor-element-51240e82" data-id="51240e82" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-3d2937fd elementor-widget elementor-widget-image" data-id="3d2937fd" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="128" height="128" decoding="async"  title="chlorella" alt="chlorella" data-src="wp-content/uploads/elementor/thumbs/chlorella-pgxrb1ts56p01lyv403uetzc54762stlhboeiuxbsw.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-651cc70b elementor-widget elementor-widget-heading" data-id="651cc70b" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Chlorella Vulgaris</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-1c7b92d7 elementor-widget elementor-widget-heading" data-id="1c7b92d7" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">É um regulador do intestino e ajuda a promover a saciedade por ter muita fibra.</h1>		</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-20 elementor-inner-column elementor-element elementor-element-643e1445" data-id="643e1445" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-37cd66c3 elementor-widget elementor-widget-image" data-id="37cd66c3" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="128" height="128" decoding="async"  title="fariadechia" alt="fariadechia" data-src="wp-content/uploads/elementor/thumbs/fariadechia-pgxrb5l4wiu5c1tei1qcot16inomxl8ituacfyrr40.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-212ee876 elementor-widget elementor-widget-heading" data-id="212ee876" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Farinha de Chia</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-2280b546 elementor-widget elementor-widget-heading" data-id="2280b546" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">É rica em fibras, além de proteínas. Essas propriedades ajudam a manter a saciedade e  na diminuição do consumo de alimentos.</h1>		</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-20 elementor-inner-column elementor-element elementor-element-2aa77874" data-id="2aa77874" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-3e793dcf elementor-widget elementor-widget-image" data-id="3e793dcf" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="128" height="128" decoding="async"  title="laranjamoro" alt="laranjamoro" data-src="wp-content/uploads/elementor/thumbs/laranjamoro-pgxrb7gta6wpz9qo72jltsk3pffdczfzi3lbeioyrk.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-8d7e275 elementor-widget elementor-widget-heading" data-id="8d7e275" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Extrato de Laranja Moro</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-27394d40 elementor-widget elementor-widget-heading" data-id="27394d40" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">As substâncias presentes no estrato de Laranja Moro atuam sinergicamente na quebra e na queima de gorduras.</h1>		</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-20 elementor-inner-column elementor-element elementor-element-11855ae7" data-id="11855ae7" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-10d334e0 elementor-widget elementor-widget-image" data-id="10d334e0" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="128" height="128" decoding="async"  title="inulina" alt="inulina" data-src="wp-content/uploads/elementor/thumbs/inulina-pgxrb6iz3cvfnns1ck4z9asn41k05ac95yxtx8qcxs.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-ed9114a elementor-widget elementor-widget-heading" data-id="ed9114a" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Inulina</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-1a077576 elementor-widget elementor-widget-heading" data-id="1a077576" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">Promove a sensação de saciedade e diminui o apetite.</h1>		</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-20 elementor-inner-column elementor-element elementor-element-4c122e1a" data-id="4c122e1a" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-788ce918 elementor-widget elementor-widget-image" data-id="788ce918" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="128" height="128" decoding="async"  title="b12" alt="b12" data-src="wp-content/uploads/elementor/thumbs/b12-pgxrazy3rimfee1lezal9ugeycgfnem4t2dfkb045c.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-3a8a2f55 elementor-widget elementor-widget-heading" data-id="3a8a2f55" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Vitamina B12</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-2a5dbb4c elementor-widget elementor-widget-heading" data-id="2a5dbb4c" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">Auxilia na produção de energia no organismo, o que ajuda a promover a perca de peso.</h1>		</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<div class="elementor-element elementor-element-508cb5ff elementor-align-center blob elementor-hidden-mobile elementor-widget elementor-widget-button" data-id="508cb5ff" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="#checkout" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">comprar com <b>desconto  <span style="font-weight: 800; font-size: 20px; color: #fffc00">black friday</SPAN></b></span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-31e3d716 elementor-align-center blob elementor-hidden-desktop elementor-hidden-tablet elementor-widget elementor-widget-button" data-id="31e3d716" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="#checkout" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">comprar com <b>desconto <BR> <span style="font-weight: 800; font-size: 26px; color: #fffc00">black friday</SPAN></b></span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-2eadd70d elementor-widget elementor-widget-image" data-id="2eadd70d" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="1024" height="128" decoding="async"  title="selos-compra-segura" alt="selos-compra-segura" data-src="wp-content/uploads/2022/11/selos-compra-segura.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-top-section elementor-element elementor-element-20ef3662 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="20ef3662" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-d3ad30" data-id="d3ad30" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-4f31e2b3 elementor-widget elementor-widget-heading" data-id="4f31e2b3" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default"> <span style="color: #6BB434;">NEW DETOX</span><br>É PARA VOCÊ QUE...</h1>		</div>
+				</div>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-inner-section elementor-element elementor-element-3c351f51 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="3c351f51" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-54b13ec4" data-id="54b13ec4" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-7cc381c8 elementor-widget elementor-widget-image" data-id="7cc381c8" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="128" height="128" decoding="async"  title="b2" alt="b2" data-src="wp-content/uploads/elementor/thumbs/b2-pgxmibzec498p2umnueqqx16l9i4p056qg7gxh0l4w.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-555e617e elementor-widget elementor-widget-heading" data-id="555e617e" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Já tentou de tudo mas Não consegue Emagrecer</h2>		</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-6a10000a" data-id="6a10000a" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-3f9bf493 elementor-widget elementor-widget-image" data-id="3f9bf493" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="128" height="128" decoding="async"  title="b4" alt="b4" data-src="wp-content/uploads/elementor/thumbs/b4-pgxmidv2psbtcarwcv7zvwk3s18v4ecnepifw0xssg.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-26586480 elementor-widget elementor-widget-heading" data-id="26586480" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Vive Cansada(o) e sem Disposição para Nada</h2>		</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-7d2a6f95" data-id="7d2a6f95" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-25de02c3 elementor-widget elementor-widget-image" data-id="25de02c3" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="128" height="128" decoding="async"  title="b5" alt="b5" data-src="wp-content/uploads/elementor/thumbs/b5-pgxmifqr3gedzip61w190w30yszljsk42yteukv0g0.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-4aca5392 elementor-widget elementor-widget-heading" data-id="4aca5392" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Vive com Fome e
+Ansiedade</h2>		</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-inner-section elementor-element elementor-element-55d42bb6 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="55d42bb6" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-76b568cd" data-id="76b568cd" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-162c7ebd elementor-widget elementor-widget-image" data-id="162c7ebd" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="128" height="128" decoding="async"  title="b1" alt="b1" data-src="wp-content/uploads/elementor/thumbs/b1-pgxmia3pyg6o1uxcytlhlxi9ehre9lxq26whyx3dhc.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-42668610 elementor-widget elementor-widget-heading" data-id="42668610" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Está com o Corpo Inchado e Pesado</h2>		</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-5710ecb7" data-id="5710ecb7" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-6dafaa9c elementor-widget elementor-widget-image" data-id="6dafaa9c" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="128" height="128" decoding="async"  title="b3" alt="b3" data-src="wp-content/uploads/elementor/thumbs/b3-pgxmicx8iyaj0ot9ictdbesn6ndhwp8x2kuyeqz6yo.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-a72417 elementor-widget elementor-widget-heading" data-id="a72417" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Quer Emagrecer Rápido Sem Passar Fome</h2>		</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-6062b274" data-id="6062b274" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-5ec12006 elementor-widget elementor-widget-image" data-id="5ec12006" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="128" height="128" decoding="async"  title="b6" alt="b6" data-src="wp-content/uploads/elementor/thumbs/b6-pgxmigolaafob4nswefvlduhk6uyrhnuf3gwbutm9s.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-7f4530aa elementor-widget elementor-widget-heading" data-id="7f4530aa" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Busca uma Solução Rápida e Saudável para Emagrecer</h2>		</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<div class="elementor-element elementor-element-6dffb10d elementor-align-center blob elementor-hidden-mobile elementor-widget elementor-widget-button" data-id="6dffb10d" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="#checkout" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">comprar com <b>desconto  <span style="font-weight: 800; font-size: 20px; color: #fffc00">black friday</SPAN></b></span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-2631e953 elementor-align-center blob elementor-hidden-desktop elementor-hidden-tablet elementor-widget elementor-widget-button" data-id="2631e953" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="#checkout" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">comprar com <b>desconto <BR> <span style="font-weight: 800; font-size: 26px; color: #fffc00">black friday</SPAN></b></span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-48959ec3 elementor-widget elementor-widget-image" data-id="48959ec3" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="1024" height="128" decoding="async"  title="selos-compra-segura preto" alt="selos-compra-segura preto" data-src="wp-content/uploads/2022/11/selos-compra-segura-preto.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-top-section elementor-element elementor-element-367d3d5f elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="367d3d5f" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-537b1bb9" data-id="537b1bb9" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-inner-section elementor-element elementor-element-440c780 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="440c780" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-5dbd7160" data-id="5dbd7160" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-2a3cf139 elementor-widget elementor-widget-menu-anchor" data-id="2a3cf139" data-element_type="widget" data-widget_type="menu-anchor.default">
+				<div class="elementor-widget-container">
+			<style>/*! elementor - v3.7.6 - 15-09-2022 */
+body.elementor-page .elementor-widget-menu-anchor{margin-bottom:0}</style>		<div id="checkout" class="elementor-menu-anchor"></div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-3e753aea elementor-hidden-desktop elementor-hidden-tablet elementor-widget elementor-widget-heading" data-id="3e753aea" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">APROVEITE NOSSOS PREÇOS DE <br><span style="font-weight: 800; font-size: 36px; color: #fffc00">black friday</SPAN></h1>		</div>
+				</div>
+				<div class="elementor-element elementor-element-477f60c1 elementor-hidden-mobile elementor-widget elementor-widget-heading" data-id="477f60c1" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">APROVEITE NOSSOS PREÇOS DE <span style="font-weight: 800; font-size: 50px; color: #fffc00">black friday</SPAN></h1>		</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-inner-section elementor-element elementor-element-4031fc5c elementor-section-full_width elementor-section-height-default elementor-section-height-default" data-id="4031fc5c" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-75ad1f48 bneon elementor-invisible" data-id="75ad1f48" data-element_type="column" data-settings="{&quot;animation&quot;:&quot;fadeInUp&quot;,&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+					<div class="elementor-background-overlay"></div>
+								<div class="elementor-element elementor-element-44c03724 elementor-widget elementor-widget-heading" data-id="44c03724" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default"> COMPRE 1 POTE<BR> <span style="color: #6BB434;">LEVE O 2º GRÁTIS</span></h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-1d83975d elementor-widget elementor-widget-image" data-id="1d83975d" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="562" height="569" decoding="async"  title="1 + 1" alt="1 + 1" data-src="wp-content/uploads/2022/11/1-1.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-8fede0f elementor-widget elementor-widget-heading" data-id="8fede0f" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">TRATAMENTO PARA 2 MESES</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-6ff8b301 elementor-widget elementor-widget-text-editor" data-id="6ff8b301" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+			<style>/*! elementor - v3.7.6 - 15-09-2022 */
+.elementor-widget-text-editor.elementor-drop-cap-view-stacked .elementor-drop-cap{background-color:#818a91;color:#fff}.elementor-widget-text-editor.elementor-drop-cap-view-framed .elementor-drop-cap{color:#818a91;border:3px solid;background-color:transparent}.elementor-widget-text-editor:not(.elementor-drop-cap-view-default) .elementor-drop-cap{margin-top:8px}.elementor-widget-text-editor:not(.elementor-drop-cap-view-default) .elementor-drop-cap-letter{width:1em;height:1em}.elementor-widget-text-editor .elementor-drop-cap{float:left;text-align:center;line-height:1;font-size:50px}.elementor-widget-text-editor .elementor-drop-cap-letter{display:inline-block}</style>				FRETE GRÁTIS						</div>
+				</div>
+				<div class="elementor-element elementor-element-73cef654 elementor-widget__width-initial elementor-widget elementor-widget-heading" data-id="73cef654" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">DE <b><s>R$177,00</s></b></h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-757ebe89 elementor-widget__width-initial elementor-widget elementor-widget-heading" data-id="757ebe89" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">POR APENAS 12X</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-4ef5b92b elementor-widget__width-initial elementor-widget elementor-widget-heading" data-id="4ef5b92b" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">R$9,74</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-cc715f9 elementor-widget__width-initial elementor-widget elementor-widget-heading" data-id="cc715f9" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">OU R$97,00 A VISTA</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-4b251981 elementor-align-center elementor-mobile-align-center elementor-tablet-align-center elementor-widget elementor-widget-button" data-id="4b251981" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="https://app.monetizze.com.br/r/AED21399014?u=c&pl=FF169217" class="elementor-button-link elementor-button elementor-size-lg elementor-animation-grow" role="button">
+						<span class="elementor-button-content-wrapper">
+							<span class="elementor-button-icon elementor-align-icon-left">
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0" y="0" viewBox="0 0 512.003 512.003" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><g xmlns="http://www.w3.org/2000/svg"><circle cx="226" cy="436.002" r="45" fill="#f1f1f1" data-original="#000000"></circle><circle cx="377" cy="436.002" r="45" fill="#f1f1f1" data-original="#000000"></circle><path d="m15 61.002h62.553l72.418 253.513-5.68 11.36c-14.956 29.88 6.755 65.127 40.254 65.127h252.455c8.291 0 15-6.709 15-15s-6.709-15-15-15h-252.455c-11.139 0-18.419-11.729-13.418-21.709l4.146-8.291h261.727c6.694 0 12.583-4.438 14.429-10.884l60-210c1.289-4.526.381-9.39-2.446-13.154-2.842-3.75-7.28-5.962-11.982-5.962h-379.678l-14.033-49.117c-1.846-6.445-7.734-10.884-14.429-10.884h-73.861c-8.291 0-15 6.709-15 15s6.709 15.001 15 15.001z" fill="#f1f1f1" data-original="#000000"></path></g></g></svg>			</span>
+						<span class="elementor-button-text">COMPRAR AGORA!</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-25e858a8 bneon elementor-invisible" data-id="25e858a8" data-element_type="column" data-settings="{&quot;animation&quot;:&quot;fadeInUp&quot;,&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+					<div class="elementor-background-overlay"></div>
+								<div class="elementor-element elementor-element-dc875a2 elementor-widget elementor-widget-heading" data-id="dc875a2" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default"> COMPRE 2 POTES<BR> <span style="color: #6BB434;">LEVE O 3º GRÁTIS</span></h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-7eabf704 elementor-widget elementor-widget-image" data-id="7eabf704" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="562" height="569" decoding="async"  title="2 + 1" alt="2 + 1" data-src="wp-content/uploads/2022/11/2-1.webp" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-6d5b32fa elementor-widget elementor-widget-heading" data-id="6d5b32fa" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">TRATAMENTO PARA 3 MESES</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-1ba4cd26 elementor-widget elementor-widget-text-editor" data-id="1ba4cd26" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							FRETE GRÁTIS						</div>
+				</div>
+				<div class="elementor-element elementor-element-3a8c2be5 elementor-widget__width-initial elementor-widget elementor-widget-heading" data-id="3a8c2be5" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">DE <b><s>R$194,00</s></b></h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-5722fb6b elementor-widget__width-initial elementor-widget elementor-widget-heading" data-id="5722fb6b" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">POR APENAS 12X</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-1fdb299a elementor-widget__width-initial elementor-widget elementor-widget-heading" data-id="1fdb299a" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">R$15,76</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-77daf010 elementor-widget__width-initial elementor-widget elementor-widget-heading" data-id="77daf010" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">OU R$157,00 A VISTA</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-ae8447c elementor-align-center elementor-mobile-align-center elementor-tablet-align-center elementor-widget elementor-widget-button" data-id="ae8447c" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="https://app.monetizze.com.br/r/AED21399014?u=c&pl=QJ153820" class="elementor-button-link elementor-button elementor-size-lg elementor-animation-grow" role="button">
+						<span class="elementor-button-content-wrapper">
+							<span class="elementor-button-icon elementor-align-icon-left">
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0" y="0" viewBox="0 0 512.003 512.003" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><g xmlns="http://www.w3.org/2000/svg"><circle cx="226" cy="436.002" r="45" fill="#f1f1f1" data-original="#000000"></circle><circle cx="377" cy="436.002" r="45" fill="#f1f1f1" data-original="#000000"></circle><path d="m15 61.002h62.553l72.418 253.513-5.68 11.36c-14.956 29.88 6.755 65.127 40.254 65.127h252.455c8.291 0 15-6.709 15-15s-6.709-15-15-15h-252.455c-11.139 0-18.419-11.729-13.418-21.709l4.146-8.291h261.727c6.694 0 12.583-4.438 14.429-10.884l60-210c1.289-4.526.381-9.39-2.446-13.154-2.842-3.75-7.28-5.962-11.982-5.962h-379.678l-14.033-49.117c-1.846-6.445-7.734-10.884-14.429-10.884h-73.861c-8.291 0-15 6.709-15 15s6.709 15.001 15 15.001z" fill="#f1f1f1" data-original="#000000"></path></g></g></svg>			</span>
+						<span class="elementor-button-text">COMPRAR AGORA!</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-502caa46 bneon elementor-invisible" data-id="502caa46" data-element_type="column" data-settings="{&quot;animation&quot;:&quot;fadeInUp&quot;,&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+					<div class="elementor-background-overlay"></div>
+								<div class="elementor-element elementor-element-64979202 elementor-widget elementor-widget-heading" data-id="64979202" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default"> COMPRE 3 POTES<BR> <span style="color: #6BB434;">LEVE O 4º GRÁTIS</span></h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-6c3bd70f elementor-widget elementor-widget-image" data-id="6c3bd70f" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="603" height="569" decoding="async"  title="3 + 1" alt="3 + 1" data-src="wp-content/uploads/2022/11/3-1.webp" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-6045ecc0 elementor-widget elementor-widget-heading" data-id="6045ecc0" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">TRATAMENTO PARA 4 MESES</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-2ab45034 elementor-widget elementor-widget-text-editor" data-id="2ab45034" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							FRETE GRÁTIS						</div>
+				</div>
+				<div class="elementor-element elementor-element-140c84b2 elementor-widget__width-initial elementor-widget elementor-widget-heading" data-id="140c84b2" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">DE <b><s>R$297,00</s></b></h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-74f19527 elementor-widget__width-initial elementor-widget elementor-widget-heading" data-id="74f19527" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">POR APENAS 12X</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-2b9068d4 elementor-widget__width-initial elementor-widget elementor-widget-heading" data-id="2b9068d4" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">R$22,79</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-10619832 elementor-widget__width-initial elementor-widget elementor-widget-heading" data-id="10619832" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">OU R$227,00 A VISTA</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-28dcd35f elementor-align-center elementor-mobile-align-center elementor-tablet-align-center elementor-widget elementor-widget-button" data-id="28dcd35f" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="https://app.monetizze.com.br/r/AED21399014?u=c&pl=QJ153820" class="elementor-button-link elementor-button elementor-size-lg elementor-animation-grow" role="button">
+						<span class="elementor-button-content-wrapper">
+							<span class="elementor-button-icon elementor-align-icon-left">
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0" y="0" viewBox="0 0 512.003 512.003" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><g xmlns="http://www.w3.org/2000/svg"><circle cx="226" cy="436.002" r="45" fill="#f1f1f1" data-original="#000000"></circle><circle cx="377" cy="436.002" r="45" fill="#f1f1f1" data-original="#000000"></circle><path d="m15 61.002h62.553l72.418 253.513-5.68 11.36c-14.956 29.88 6.755 65.127 40.254 65.127h252.455c8.291 0 15-6.709 15-15s-6.709-15-15-15h-252.455c-11.139 0-18.419-11.729-13.418-21.709l4.146-8.291h261.727c6.694 0 12.583-4.438 14.429-10.884l60-210c1.289-4.526.381-9.39-2.446-13.154-2.842-3.75-7.28-5.962-11.982-5.962h-379.678l-14.033-49.117c-1.846-6.445-7.734-10.884-14.429-10.884h-73.861c-8.291 0-15 6.709-15 15s6.709 15.001 15 15.001z" fill="#f1f1f1" data-original="#000000"></path></g></g></svg>			</span>
+						<span class="elementor-button-text">COMPRAR AGORA!</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-3a6fe9aa bneon elementor-invisible" data-id="3a6fe9aa" data-element_type="column" data-settings="{&quot;animation&quot;:&quot;fadeInUp&quot;,&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+					<div class="elementor-background-overlay"></div>
+								<div class="elementor-element elementor-element-ef042a elementor-widget elementor-widget-heading" data-id="ef042a" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default"> COMPRE 5 POTES<BR> <span style="color: #6BB434;">E LEVE 8</span></h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-43cdcb00 elementor-widget elementor-widget-image" data-id="43cdcb00" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="780" height="541" decoding="async"  title="5 + 3" alt="5 + 3" data-src="wp-content/uploads/2022/11/5-3.webp" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-1c76e9a4 elementor-widget elementor-widget-heading" data-id="1c76e9a4" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">TRATAMENTO PARA 8 MESES</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-5f6fecd3 elementor-widget elementor-widget-text-editor" data-id="5f6fecd3" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							FRETE GRÁTIS						</div>
+				</div>
+				<div class="elementor-element elementor-element-1c999dbf elementor-widget__width-initial elementor-widget elementor-widget-heading" data-id="1c999dbf" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">DE <b><s>R$497,00</s></b></h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-13b9f4be elementor-widget__width-initial elementor-widget elementor-widget-heading" data-id="13b9f4be" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">POR APENAS 12X</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-47d0b0c6 elementor-widget__width-initial elementor-widget elementor-widget-heading" data-id="47d0b0c6" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">R$34,84</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-2cc8c789 elementor-widget__width-initial elementor-widget elementor-widget-heading" data-id="2cc8c789" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">OU R$347,00 A VISTA</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-75adabc9 elementor-align-center elementor-mobile-align-center elementor-tablet-align-center elementor-widget elementor-widget-button" data-id="75adabc9" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="https://app.monetizze.com.br/r/AED21399014?u=c&pl=LZ169226" class="elementor-button-link elementor-button elementor-size-lg elementor-animation-grow" role="button">
+						<span class="elementor-button-content-wrapper">
+							<span class="elementor-button-icon elementor-align-icon-left">
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0" y="0" viewBox="0 0 512.003 512.003" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><g xmlns="http://www.w3.org/2000/svg"><circle cx="226" cy="436.002" r="45" fill="#f1f1f1" data-original="#000000"></circle><circle cx="377" cy="436.002" r="45" fill="#f1f1f1" data-original="#000000"></circle><path d="m15 61.002h62.553l72.418 253.513-5.68 11.36c-14.956 29.88 6.755 65.127 40.254 65.127h252.455c8.291 0 15-6.709 15-15s-6.709-15-15-15h-252.455c-11.139 0-18.419-11.729-13.418-21.709l4.146-8.291h261.727c6.694 0 12.583-4.438 14.429-10.884l60-210c1.289-4.526.381-9.39-2.446-13.154-2.842-3.75-7.28-5.962-11.982-5.962h-379.678l-14.033-49.117c-1.846-6.445-7.734-10.884-14.429-10.884h-73.861c-8.291 0-15 6.709-15 15s6.709 15.001 15 15.001z" fill="#f1f1f1" data-original="#000000"></path></g></g></svg>			</span>
+						<span class="elementor-button-text">COMPRAR AGORA!</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-inner-section elementor-element elementor-element-3be31d15 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="3be31d15" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-5bf562e1" data-id="5bf562e1" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-4661df4d elementor-widget elementor-widget-text-editor" data-id="4661df4d" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							Mais de 10 mil pessoas já usaram o New Detox no Brasil. nos orgulhamos de nossa taxa de 97,6% de aprovação!						</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-top-section elementor-element elementor-element-2f383ce6 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="2f383ce6" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-7f988ec9" data-id="7f988ec9" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-inner-section elementor-element elementor-element-61b93fe2 elementor-reverse-mobile elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="61b93fe2" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-6e3a7b8d" data-id="6e3a7b8d" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-3a9c87b2 elementor-widget elementor-widget-heading" data-id="3a9c87b2" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">SEU RISCO POR TENTAR É  <span style="color: #6BB434;">ZERO!</span></h1>		</div>
+				</div>
+				<div class="elementor-element elementor-element-7111bff9 elementor-widget elementor-widget-text-editor" data-id="7111bff9" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							Se por algum motivo você não ficar Satisfeita com New Detox, devolvemos 100% do Seu Dinheiro!						</div>
+				</div>
+				<div class="elementor-element elementor-element-6bb8ad8f elementor-hidden-desktop elementor-hidden-tablet elementor-widget elementor-widget-image" data-id="6bb8ad8f" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="1000" height="911" decoding="async"  title="asdwsw (1)" alt="asdwsw (1)" data-src="wp-content/uploads/2022/11/asdwsw-1.webp" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-7064e8e3 elementor-align-center blob elementor-widget elementor-widget-button" data-id="7064e8e3" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="#checkout" class="elementor-button-link elementor-button elementor-size-sm" role="button" id="blob">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">Quero comprar com garantia!</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-6a5960b4 elementor-widget elementor-widget-image" data-id="6a5960b4" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="1024" height="128" decoding="async"  title="selos-compra-segura preto" alt="selos-compra-segura preto" data-src="wp-content/uploads/2022/11/selos-compra-segura-preto.png" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-74536384 elementor-hidden-mobile" data-id="74536384" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-570aabe6 elementor-widget elementor-widget-image" data-id="570aabe6" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="1000" height="911" decoding="async"  title="asdwsw (1)" alt="asdwsw (1)" data-src="wp-content/uploads/2022/11/asdwsw-1.webp" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-top-section elementor-element elementor-element-38d0b64b elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="38d0b64b" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-410680f4" data-id="410680f4" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-4e9fb4d5 elementor-widget elementor-widget-heading" data-id="4e9fb4d5" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Ainda com  <span style="color: #6BB434;">dúvidas?</span></h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-865e8c7 round_b2 elementor-widget elementor-widget-accordion" data-id="865e8c7" data-element_type="widget" data-widget_type="accordion.default">
+				<div class="elementor-widget-container">
+			<style>/*! elementor - v3.7.6 - 15-09-2022 */
+.elementor-accordion{text-align:left}.elementor-accordion .elementor-accordion-item{border:1px solid #d4d4d4}.elementor-accordion .elementor-accordion-item+.elementor-accordion-item{border-top:none}.elementor-accordion .elementor-tab-title{margin:0;padding:15px 20px;font-weight:700;line-height:1;cursor:pointer;outline:none}.elementor-accordion .elementor-tab-title .elementor-accordion-icon{display:inline-block;width:1.5em}.elementor-accordion .elementor-tab-title .elementor-accordion-icon svg{width:1em;height:1em}.elementor-accordion .elementor-tab-title .elementor-accordion-icon.elementor-accordion-icon-right{float:right;text-align:right}.elementor-accordion .elementor-tab-title .elementor-accordion-icon.elementor-accordion-icon-left{float:left;text-align:left}.elementor-accordion .elementor-tab-title .elementor-accordion-icon .elementor-accordion-icon-closed{display:block}.elementor-accordion .elementor-tab-title .elementor-accordion-icon .elementor-accordion-icon-opened,.elementor-accordion .elementor-tab-title.elementor-active .elementor-accordion-icon-closed{display:none}.elementor-accordion .elementor-tab-title.elementor-active .elementor-accordion-icon-opened{display:block}.elementor-accordion .elementor-tab-content{display:none;padding:15px 20px;border-top:1px solid #d4d4d4}@media (max-width:767px){.elementor-accordion .elementor-tab-title{padding:12px 15px}.elementor-accordion .elementor-tab-title .elementor-accordion-icon{width:1.2em}.elementor-accordion .elementor-tab-content{padding:7px 15px}}.e-container>.elementor-widget-accordion{width:var(--container-widget-width,100%)}</style>		<div class="elementor-accordion" role="tablist">
+							<div class="elementor-accordion-item">
+					<div id="elementor-tab-title-1401" class="elementor-tab-title" data-tab="1" role="tab" aria-controls="elementor-tab-content-1401" aria-expanded="false">
+													<span class="elementor-accordion-icon elementor-accordion-icon-right" aria-hidden="true">
+															<span class="elementor-accordion-icon-closed"><svg class="e-font-icon-svg e-far-eye"><use xlink:href="#far-eye" /></svg></span>
+								<span class="elementor-accordion-icon-opened"><svg class="e-font-icon-svg e-far-eye-slash"><use xlink:href="#far-eye-slash" /></svg></span>
+														</span>
+												<a class="elementor-accordion-title" href="">Quais os Efeitos do New Detox?</a>
+					</div>
+					<div id="elementor-tab-content-1401" class="elementor-tab-content elementor-clearfix" data-tab="1" role="tabpanel" aria-labelledby="elementor-tab-title-1401">New Detox possui uma ação emagrecedora, atuando na queima de gordura, desintoxicação do corpo, auxiliando na redução do inchaço do seu corpo, aumentando sua disposição e fazendo você emagrecer de forma rápida e definitiva.</div>
+				</div>
+							<div class="elementor-accordion-item">
+					<div id="elementor-tab-title-1402" class="elementor-tab-title" data-tab="2" role="tab" aria-controls="elementor-tab-content-1402" aria-expanded="false">
+													<span class="elementor-accordion-icon elementor-accordion-icon-right" aria-hidden="true">
+															<span class="elementor-accordion-icon-closed"><svg class="e-font-icon-svg e-far-eye"><use xlink:href="#far-eye" /></svg></span>
+								<span class="elementor-accordion-icon-opened"><svg class="e-font-icon-svg e-far-eye-slash"><use xlink:href="#far-eye-slash" /></svg></span>
+														</span>
+												<a class="elementor-accordion-title" href="">Quantos KG Consigo emagrecer com New Detox?</a>
+					</div>
+					<div id="elementor-tab-content-1402" class="elementor-tab-content elementor-clearfix" data-tab="2" role="tabpanel" aria-labelledby="elementor-tab-title-1402">Os resultados variam de pessoa para pessoa, mas com New Detox você já consegue obter e ver diferença já nas primeiras semanas de uso.</div>
+				</div>
+							<div class="elementor-accordion-item">
+					<div id="elementor-tab-title-1403" class="elementor-tab-title" data-tab="3" role="tab" aria-controls="elementor-tab-content-1403" aria-expanded="false">
+													<span class="elementor-accordion-icon elementor-accordion-icon-right" aria-hidden="true">
+															<span class="elementor-accordion-icon-closed"><svg class="e-font-icon-svg e-far-eye"><use xlink:href="#far-eye" /></svg></span>
+								<span class="elementor-accordion-icon-opened"><svg class="e-font-icon-svg e-far-eye-slash"><use xlink:href="#far-eye-slash" /></svg></span>
+														</span>
+												<a class="elementor-accordion-title" href="">Qual o Prazo da Entrega?</a>
+					</div>
+					<div id="elementor-tab-content-1403" class="elementor-tab-content elementor-clearfix" data-tab="3" role="tabpanel" aria-labelledby="elementor-tab-title-1403">O prazo médio de entrega para o Brasil é de 1 a 10 dias úteis. O produto só é enviado após a confirmação do seu pagamento pela administradora do seu cartão de crédito ou após a confirmação do pagamento do boleto.</div>
+				</div>
+							<div class="elementor-accordion-item">
+					<div id="elementor-tab-title-1404" class="elementor-tab-title" data-tab="4" role="tab" aria-controls="elementor-tab-content-1404" aria-expanded="false">
+													<span class="elementor-accordion-icon elementor-accordion-icon-right" aria-hidden="true">
+															<span class="elementor-accordion-icon-closed"><svg class="e-font-icon-svg e-far-eye"><use xlink:href="#far-eye" /></svg></span>
+								<span class="elementor-accordion-icon-opened"><svg class="e-font-icon-svg e-far-eye-slash"><use xlink:href="#far-eye-slash" /></svg></span>
+														</span>
+												<a class="elementor-accordion-title" href="">Existem efeitos colaterais? Qualquer um pode tomar?</a>
+					</div>
+					<div id="elementor-tab-content-1404" class="elementor-tab-content elementor-clearfix" data-tab="4" role="tabpanel" aria-labelledby="elementor-tab-title-1404">Não existe nenhum efeito colateral com o consumo do produto, e qualquer pessoa pode tomar e aproveitar seus benefícios.Porém, gestantes, crianças e pessoas enfermas ou que fazem uso contínuo de algum medicamento devem consultar um médico antes de iniciar o consumo.</div>
+				</div>
+							<div class="elementor-accordion-item">
+					<div id="elementor-tab-title-1405" class="elementor-tab-title" data-tab="5" role="tab" aria-controls="elementor-tab-content-1405" aria-expanded="false">
+													<span class="elementor-accordion-icon elementor-accordion-icon-right" aria-hidden="true">
+															<span class="elementor-accordion-icon-closed"><svg class="e-font-icon-svg e-far-eye"><use xlink:href="#far-eye" /></svg></span>
+								<span class="elementor-accordion-icon-opened"><svg class="e-font-icon-svg e-far-eye-slash"><use xlink:href="#far-eye-slash" /></svg></span>
+														</span>
+												<a class="elementor-accordion-title" href="">Como Devo Usar New Detox?</a>
+					</div>
+					<div id="elementor-tab-content-1405" class="elementor-tab-content elementor-clearfix" data-tab="5" role="tabpanel" aria-labelledby="elementor-tab-title-1405">New Detox deve ser tomado diariamente, 2 cápsulas por dia, preferencialmente antes das refeições. Recomendamos o uso por no mínimo 3 meses para um resultado surpreendente.</div>
+				</div>
+								</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-top-section elementor-element elementor-element-57200544 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="57200544" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-4ddb660" data-id="4ddb660" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-inner-section elementor-element elementor-element-3afcbc87 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="3afcbc87" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-11 elementor-inner-column elementor-element elementor-element-5b31a025" data-id="5b31a025" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-4115dd4e elementor-widget elementor-widget-image" data-id="4115dd4e" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img decoding="async" width="60" height="33"   alt="" data-src="wp-content/uploads/2021/11/visa.png" class="attachment-full size-full lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-11 elementor-inner-column elementor-element elementor-element-25229378" data-id="25229378" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-411de5b3 elementor-widget elementor-widget-image" data-id="411de5b3" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img decoding="async" width="56" height="33"   alt="" data-src="wp-content/uploads/2021/11/master.png" class="attachment-full size-full lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-11 elementor-inner-column elementor-element elementor-element-787b7cf6" data-id="787b7cf6" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-3badfe42 elementor-widget elementor-widget-image" data-id="3badfe42" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img decoding="async" width="43" height="33"   alt="" data-src="wp-content/uploads/2021/11/diners.png" class="attachment-full size-full lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-11 elementor-inner-column elementor-element elementor-element-3b48f10a" data-id="3b48f10a" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-411cc7ef elementor-widget elementor-widget-image" data-id="411cc7ef" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img decoding="async" width="60" height="33"   alt="" data-src="wp-content/uploads/2021/11/hiper.png" class="attachment-full size-full lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-11 elementor-inner-column elementor-element elementor-element-a205499" data-id="a205499" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-2b45acdc elementor-widget elementor-widget-image" data-id="2b45acdc" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img decoding="async" width="52" height="33"   alt="" data-src="wp-content/uploads/2021/11/elo.png" class="attachment-full size-full lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-11 elementor-inner-column elementor-element elementor-element-2a18f765" data-id="2a18f765" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-4308675a elementor-widget elementor-widget-image" data-id="4308675a" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img decoding="async" width="48" height="33"   alt="" data-src="wp-content/uploads/2021/11/aura.png" class="attachment-full size-full lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-11 elementor-inner-column elementor-element elementor-element-5254080a" data-id="5254080a" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-1c56940 elementor-widget elementor-widget-image" data-id="1c56940" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img decoding="async" width="59" height="33"   alt="" data-src="wp-content/uploads/2021/11/american.png" class="attachment-full size-full lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-11 elementor-inner-column elementor-element elementor-element-35d5a7f7" data-id="35d5a7f7" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-2f6b0fb elementor-widget elementor-widget-image" data-id="2f6b0fb" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img decoding="async" width="43" height="33"   alt="" data-src="wp-content/uploads/2021/11/pag-boleto.png" class="attachment-full size-full lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-11 elementor-inner-column elementor-element elementor-element-3cb0c595" data-id="3cb0c595" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-af1be6c elementor-widget elementor-widget-image" data-id="af1be6c" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img decoding="async" width="43" height="33"   alt="" data-src="wp-content/uploads/2021/11/pix-icone-1.png" class="attachment-full size-full lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-inner-section elementor-element elementor-element-d436dc3 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="d436dc3" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-1f9353da" data-id="1f9353da" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-266348e6 elementor-widget elementor-widget-heading" data-id="266348e6" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">AVISO</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-19e4e1e8 elementor-widget elementor-widget-text-editor" data-id="19e4e1e8" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							This site is not part of the Facebook website or Facebook Inc.
+Additionally, this site is NOT endorsed by Facebook in any way.
+FACEBOOK is a trademark of FACEBOOK, Inc.						</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-5c7ce8" data-id="5c7ce8" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-44406f10 elementor-widget elementor-widget-heading" data-id="44406f10" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">FALE CONOSCO</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-40967449 elementor-widget elementor-widget-text-editor" data-id="40967449" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							Fale conosco através dos nosso canais de atendimento das 09h às 18h.
+<br>
+Telefone: (37) 3351-5181						</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-3134d581" data-id="3134d581" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-3631742b elementor-widget elementor-widget-heading" data-id="3631742b" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">SITE SEGURO</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-574ac7fd elementor-widget elementor-widget-image" data-id="574ac7fd" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img decoding="async" width="220" height="46"   alt="" data-src="wp-content/uploads/2021/11/icons-siteseguro-1-1.png" class="attachment-large size-large lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />															</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-top-section elementor-element elementor-element-3ed9d969 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="3ed9d969" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-5d8e4094" data-id="5d8e4094" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<section data-particle_enable="false" data-particle-mobile-disabled="false" class="elementor-section elementor-inner-section elementor-element elementor-element-6d9bd0ad elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="6d9bd0ad" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-5a556df3" data-id="5a556df3" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-bfcceca elementor-widget elementor-widget-heading" data-id="bfcceca" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">2022 © <b>New Detox®</b>. Todos os direitos reservados.</h2>		</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+							</div>
+		<svg xmlns="http://www.w3.org/2000/svg" id="e-font-icon-svg-symbols" style="display: none;"><symbol id="eicon-chevron-left" viewBox="0 0 1000 1000"><path d="M646 125C629 125 613 133 604 142L308 442C296 454 292 471 292 487 292 504 296 521 308 533L604 854C617 867 629 875 646 875 663 875 679 871 692 858 704 846 713 829 713 812 713 796 708 779 692 767L438 487 692 225C700 217 708 204 708 187 708 171 704 154 692 142 675 129 663 125 646 125Z"></path></symbol><symbol id="eicon-chevron-right" viewBox="0 0 1000 1000"><path d="M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 146C388 133 375 125 354 125 338 125 325 129 313 142 300 154 292 171 292 187 292 204 296 221 308 233L563 492 304 771C292 783 288 800 288 817 288 833 296 850 308 863 321 871 338 875 354 875 371 875 388 867 400 854L696 533Z"></path></symbol><symbol id="far-eye" viewBox="0 0 576 512"><path d="M288 144a110.94 110.94 0 0 0-31.24 5 55.4 55.4 0 0 1 7.24 27 56 56 0 0 1-56 56 55.4 55.4 0 0 1-27-7.24A111.71 111.71 0 1 0 288 144zm284.52 97.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400c-98.65 0-189.09-55-237.93-144C98.91 167 189.34 112 288 112s189.09 55 237.93 144C477.1 345 386.66 400 288 400z"></path></symbol><symbol id="far-eye-slash" viewBox="0 0 640 512"><path d="M634 471L36 3.51A16 16 0 0 0 13.51 6l-10 12.49A16 16 0 0 0 6 41l598 467.49a16 16 0 0 0 22.49-2.49l10-12.49A16 16 0 0 0 634 471zM296.79 146.47l134.79 105.38C429.36 191.91 380.48 144 320 144a112.26 112.26 0 0 0-23.21 2.47zm46.42 219.07L208.42 260.16C210.65 320.09 259.53 368 320 368a113 113 0 0 0 23.21-2.46zM320 112c98.65 0 189.09 55 237.93 144a285.53 285.53 0 0 1-44 60.2l37.74 29.5a333.7 333.7 0 0 0 52.9-75.11 32.35 32.35 0 0 0 0-29.19C550.29 135.59 442.93 64 320 64c-36.7 0-71.71 7-104.63 18.81l46.41 36.29c18.94-4.3 38.34-7.1 58.22-7.1zm0 288c-98.65 0-189.08-55-237.93-144a285.47 285.47 0 0 1 44.05-60.19l-37.74-29.5a333.6 333.6 0 0 0-52.89 75.1 32.35 32.35 0 0 0 0 29.19C89.72 376.41 197.08 448 320 448c36.7 0 71.71-7.05 104.63-18.81l-46.41-36.28C359.28 397.2 339.89 400 320 400z"></path></symbol></svg>
+<script type="rocketlazyloadscript" id='rocket-browser-checker-js-after'>
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+</script>
+<script id='rocket-preload-links-js-extra'>
+var RocketPreloadLinksConfig = {"excludeUris":"\/(.+\/)?feed\/?.+\/?|\/(?:.+\/)?embed\/|\/(index\\.php\/)?wp\\-json(\/.*|$)|\/wp-admin\/|\/logout\/|\/wp-login.php","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|php|pdf|html|htm","siteUrl":"https:\/\/newdetox.com.br","onHoverDelay":"100","rateThrottle":"3"};
+</script>
+<script type="rocketlazyloadscript" id='rocket-preload-links-js-after'>
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+</script>
+<script src='wp-content/plugins/wp-smush-pro/app/assets/js/smush-lazy-load-native.min%EF%B9%96ver=3.9.3.js' id='smush-lazy-load-js' defer></script>
+<script id='eael-general-js-extra'>
+var localize = {"ajaxurl":"https:\/\/newdetox.com.br\/wp-admin\/admin-ajax.php","nonce":"415b99f03a","i18n":{"added":"Added ","compare":"Compare","loading":"Loading..."},"page_permalink":"https:\/\/newdetox.com.br\/","ParticleThemesData":{"default":"{\"particles\":{\"number\":{\"value\":160,\"density\":{\"enable\":true,\"value_area\":800}},\"color\":{\"value\":\"#ffffff\"},\"shape\":{\"type\":\"circle\",\"stroke\":{\"width\":0,\"color\":\"#000000\"},\"polygon\":{\"nb_sides\":5},\"image\":{\"src\":\"img\/github.svg\",\"width\":100,\"height\":100}},\"opacity\":{\"value\":0.5,\"random\":false,\"anim\":{\"enable\":false,\"speed\":1,\"opacity_min\":0.1,\"sync\":false}},\"size\":{\"value\":3,\"random\":true,\"anim\":{\"enable\":false,\"speed\":40,\"size_min\":0.1,\"sync\":false}},\"line_linked\":{\"enable\":true,\"distance\":150,\"color\":\"#ffffff\",\"opacity\":0.4,\"width\":1},\"move\":{\"enable\":true,\"speed\":6,\"direction\":\"none\",\"random\":false,\"straight\":false,\"out_mode\":\"out\",\"bounce\":false,\"attract\":{\"enable\":false,\"rotateX\":600,\"rotateY\":1200}}},\"interactivity\":{\"detect_on\":\"canvas\",\"events\":{\"onhover\":{\"enable\":true,\"mode\":\"repulse\"},\"onclick\":{\"enable\":true,\"mode\":\"push\"},\"resize\":true},\"modes\":{\"grab\":{\"distance\":400,\"line_linked\":{\"opacity\":1}},\"bubble\":{\"distance\":400,\"size\":40,\"duration\":2,\"opacity\":8,\"speed\":3},\"repulse\":{\"distance\":200,\"duration\":0.4},\"push\":{\"particles_nb\":4},\"remove\":{\"particles_nb\":2}}},\"retina_detect\":true}","nasa":"{\"particles\":{\"number\":{\"value\":250,\"density\":{\"enable\":true,\"value_area\":800}},\"color\":{\"value\":\"#ffffff\"},\"shape\":{\"type\":\"circle\",\"stroke\":{\"width\":0,\"color\":\"#000000\"},\"polygon\":{\"nb_sides\":5},\"image\":{\"src\":\"img\/github.svg\",\"width\":100,\"height\":100}},\"opacity\":{\"value\":1,\"random\":true,\"anim\":{\"enable\":true,\"speed\":1,\"opacity_min\":0,\"sync\":false}},\"size\":{\"value\":3,\"random\":true,\"anim\":{\"enable\":false,\"speed\":4,\"size_min\":0.3,\"sync\":false}},\"line_linked\":{\"enable\":false,\"distance\":150,\"color\":\"#ffffff\",\"opacity\":0.4,\"width\":1},\"move\":{\"enable\":true,\"speed\":1,\"direction\":\"none\",\"random\":true,\"straight\":false,\"out_mode\":\"out\",\"bounce\":false,\"attract\":{\"enable\":false,\"rotateX\":600,\"rotateY\":600}}},\"interactivity\":{\"detect_on\":\"canvas\",\"events\":{\"onhover\":{\"enable\":true,\"mode\":\"bubble\"},\"onclick\":{\"enable\":true,\"mode\":\"repulse\"},\"resize\":true},\"modes\":{\"grab\":{\"distance\":400,\"line_linked\":{\"opacity\":1}},\"bubble\":{\"distance\":250,\"size\":0,\"duration\":2,\"opacity\":0,\"speed\":3},\"repulse\":{\"distance\":400,\"duration\":0.4},\"push\":{\"particles_nb\":4},\"remove\":{\"particles_nb\":2}}},\"retina_detect\":true}","bubble":"{\"particles\":{\"number\":{\"value\":15,\"density\":{\"enable\":true,\"value_area\":800}},\"color\":{\"value\":\"#1b1e34\"},\"shape\":{\"type\":\"polygon\",\"stroke\":{\"width\":0,\"color\":\"#000\"},\"polygon\":{\"nb_sides\":6},\"image\":{\"src\":\"img\/github.svg\",\"width\":100,\"height\":100}},\"opacity\":{\"value\":0.3,\"random\":true,\"anim\":{\"enable\":false,\"speed\":1,\"opacity_min\":0.1,\"sync\":false}},\"size\":{\"value\":50,\"random\":false,\"anim\":{\"enable\":true,\"speed\":10,\"size_min\":40,\"sync\":false}},\"line_linked\":{\"enable\":false,\"distance\":200,\"color\":\"#ffffff\",\"opacity\":1,\"width\":2},\"move\":{\"enable\":true,\"speed\":8,\"direction\":\"none\",\"random\":false,\"straight\":false,\"out_mode\":\"out\",\"bounce\":false,\"attract\":{\"enable\":false,\"rotateX\":600,\"rotateY\":1200}}},\"interactivity\":{\"detect_on\":\"canvas\",\"events\":{\"onhover\":{\"enable\":false,\"mode\":\"grab\"},\"onclick\":{\"enable\":false,\"mode\":\"push\"},\"resize\":true},\"modes\":{\"grab\":{\"distance\":400,\"line_linked\":{\"opacity\":1}},\"bubble\":{\"distance\":400,\"size\":40,\"duration\":2,\"opacity\":8,\"speed\":3},\"repulse\":{\"distance\":200,\"duration\":0.4},\"push\":{\"particles_nb\":4},\"remove\":{\"particles_nb\":2}}},\"retina_detect\":true}","snow":"{\"particles\":{\"number\":{\"value\":450,\"density\":{\"enable\":true,\"value_area\":800}},\"color\":{\"value\":\"#fff\"},\"shape\":{\"type\":\"circle\",\"stroke\":{\"width\":0,\"color\":\"#000000\"},\"polygon\":{\"nb_sides\":5},\"image\":{\"src\":\"img\/github.svg\",\"width\":100,\"height\":100}},\"opacity\":{\"value\":0.5,\"random\":true,\"anim\":{\"enable\":false,\"speed\":1,\"opacity_min\":0.1,\"sync\":false}},\"size\":{\"value\":5,\"random\":true,\"anim\":{\"enable\":false,\"speed\":40,\"size_min\":0.1,\"sync\":false}},\"line_linked\":{\"enable\":false,\"distance\":500,\"color\":\"#ffffff\",\"opacity\":0.4,\"width\":2},\"move\":{\"enable\":true,\"speed\":6,\"direction\":\"bottom\",\"random\":false,\"straight\":false,\"out_mode\":\"out\",\"bounce\":false,\"attract\":{\"enable\":false,\"rotateX\":600,\"rotateY\":1200}}},\"interactivity\":{\"detect_on\":\"canvas\",\"events\":{\"onhover\":{\"enable\":true,\"mode\":\"bubble\"},\"onclick\":{\"enable\":true,\"mode\":\"repulse\"},\"resize\":true},\"modes\":{\"grab\":{\"distance\":400,\"line_linked\":{\"opacity\":0.5}},\"bubble\":{\"distance\":400,\"size\":4,\"duration\":0.3,\"opacity\":1,\"speed\":3},\"repulse\":{\"distance\":200,\"duration\":0.4},\"push\":{\"particles_nb\":4},\"remove\":{\"particles_nb\":2}}},\"retina_detect\":true}","nyan_cat":"{\"particles\":{\"number\":{\"value\":150,\"density\":{\"enable\":false,\"value_area\":800}},\"color\":{\"value\":\"#ffffff\"},\"shape\":{\"type\":\"star\",\"stroke\":{\"width\":0,\"color\":\"#000000\"},\"polygon\":{\"nb_sides\":5},\"image\":{\"src\":\"http:\/\/wiki.lexisnexis.com\/academic\/images\/f\/fb\/Itunes_podcast_icon_300.jpg\",\"width\":100,\"height\":100}},\"opacity\":{\"value\":0.5,\"random\":false,\"anim\":{\"enable\":false,\"speed\":1,\"opacity_min\":0.1,\"sync\":false}},\"size\":{\"value\":4,\"random\":true,\"anim\":{\"enable\":false,\"speed\":40,\"size_min\":0.1,\"sync\":false}},\"line_linked\":{\"enable\":false,\"distance\":150,\"color\":\"#ffffff\",\"opacity\":0.4,\"width\":1},\"move\":{\"enable\":true,\"speed\":14,\"direction\":\"left\",\"random\":false,\"straight\":true,\"out_mode\":\"out\",\"bounce\":false,\"attract\":{\"enable\":false,\"rotateX\":600,\"rotateY\":1200}}},\"interactivity\":{\"detect_on\":\"canvas\",\"events\":{\"onhover\":{\"enable\":false,\"mode\":\"grab\"},\"onclick\":{\"enable\":true,\"mode\":\"repulse\"},\"resize\":true},\"modes\":{\"grab\":{\"distance\":200,\"line_linked\":{\"opacity\":1}},\"bubble\":{\"distance\":400,\"size\":40,\"duration\":2,\"opacity\":8,\"speed\":3},\"repulse\":{\"distance\":200,\"duration\":0.4},\"push\":{\"particles_nb\":4},\"remove\":{\"particles_nb\":2}}},\"retina_detect\":true}"},"eael_translate_text":{"required_text":"is a required field","invalid_text":"Invalid","billing_text":"Billing","shipping_text":"Shipping"},"eael_login_nonce":"972f97cda7","eael_register_nonce":"f72253a39a"};
+</script>
+<script type="rocketlazyloadscript" src='wp-content/plugins/essential-addons-for-elementor-lite/assets/front-end/js/view/general.min%EF%B9%96ver=5.2.4.js' id='eael-general-js' defer></script>
+<script type="rocketlazyloadscript" src='wp-includes/js/imagesloaded.min%EF%B9%96ver=4.1.4.js' id='imagesloaded-js' defer></script>
+<script type="rocketlazyloadscript" src='wp-content/plugins/elementor-pro/assets/js/webpack-pro.runtime.min%EF%B9%96ver=3.5.0.js' id='elementor-pro-webpack-runtime-js' defer></script>
+<script type="rocketlazyloadscript" src='wp-content/plugins/elementor/assets/js/webpack.runtime.min%EF%B9%96ver=3.7.6.js' id='elementor-webpack-runtime-js' defer></script>
+<script type="rocketlazyloadscript" src='wp-content/plugins/elementor/assets/js/frontend-modules.min%EF%B9%96ver=3.7.6.js' id='elementor-frontend-modules-js' defer></script>
+<script type="rocketlazyloadscript" id='elementor-pro-frontend-js-before'>
+var ElementorProFrontendConfig = {"ajaxurl":"https:\/\/newdetox.com.br\/wp-admin\/admin-ajax.php","nonce":"f2791b315e","urls":{"assets":"https:\/\/newdetox.com.br\/wp-content\/plugins\/elementor-pro\/assets\/","rest":"https:\/\/newdetox.com.br\/wp-json\/"},"i18n":{"toc_no_headings_found":"No headings were found on this page."},"shareButtonsNetworks":{"facebook":{"title":"Facebook","has_counter":true},"twitter":{"title":"Twitter"},"linkedin":{"title":"LinkedIn","has_counter":true},"pinterest":{"title":"Pinterest","has_counter":true},"reddit":{"title":"Reddit","has_counter":true},"vk":{"title":"VK","has_counter":true},"odnoklassniki":{"title":"OK","has_counter":true},"tumblr":{"title":"Tumblr"},"digg":{"title":"Digg"},"skype":{"title":"Skype"},"stumbleupon":{"title":"StumbleUpon","has_counter":true},"mix":{"title":"Mix"},"telegram":{"title":"Telegram"},"pocket":{"title":"Pocket","has_counter":true},"xing":{"title":"XING","has_counter":true},"whatsapp":{"title":"WhatsApp"},"email":{"title":"Email"},"print":{"title":"Print"}},"facebook_sdk":{"lang":"pt_PT","app_id":""},"lottie":{"defaultAnimationUrl":"https:\/\/newdetox.com.br\/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json"}};
+</script>
+<script type="rocketlazyloadscript" src='wp-content/plugins/elementor-pro/assets/js/frontend.min%EF%B9%96ver=3.5.0.js' id='elementor-pro-frontend-js' defer></script>
+<script type="rocketlazyloadscript" src='wp-content/plugins/elementor/assets/lib/waypoints/waypoints.min%EF%B9%96ver=4.0.2.js' id='elementor-waypoints-js' defer></script>
+<script type="rocketlazyloadscript" id='elementor-frontend-js-before'>
+var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false,"isScriptDebug":false},"i18n":{"shareOnFacebook":"Partilhar no Facebook","shareOnTwitter":"Partilhar no Twitter","pinIt":"Fix\u00e1-lo","download":"Download","downloadImage":"Descarregar Imagem","fullscreen":"\u00c9cr\u00e3 Inteiro","zoom":"Zoom","share":"Partilhar","playVideo":"Reproduzir v\u00eddeo","previous":"Anterior","next":"Seguinte","close":"Fechar"},"is_rtl":false,"breakpoints":{"xs":0,"sm":480,"md":768,"lg":1025,"xl":1440,"xxl":1600},"responsive":{"breakpoints":{"mobile":{"label":"Mobile","value":767,"default_value":767,"direction":"max","is_enabled":true},"mobile_extra":{"label":"Mobile Extra","value":880,"default_value":880,"direction":"max","is_enabled":false},"tablet":{"label":"Tablet","value":1024,"default_value":1024,"direction":"max","is_enabled":true},"tablet_extra":{"label":"Tablet Extra","value":1200,"default_value":1200,"direction":"max","is_enabled":false},"laptop":{"label":"Port\u00e1til","value":1366,"default_value":1366,"direction":"max","is_enabled":false},"widescreen":{"label":"Widescreen","value":2400,"default_value":2400,"direction":"min","is_enabled":false}}},"version":"3.7.6","is_static":false,"experimentalFeatures":{"e_dom_optimization":true,"e_optimized_assets_loading":true,"e_optimized_css_loading":true,"e_font_icon_svg":true,"a11y_improvements":true,"additional_custom_breakpoints":true,"e_import_export":true,"e_hidden_wordpress_widgets":true,"theme_builder_v2":true,"landing-pages":true,"elements-color-picker":true,"favorite-widgets":true,"admin-top-bar":true,"form-submissions":true},"urls":{"assets":"https:\/\/newdetox.com.br\/wp-content\/plugins\/elementor\/assets\/"},"settings":{"page":[],"editorPreferences":[]},"kit":{"active_breakpoints":["viewport_mobile","viewport_tablet"],"global_image_lightbox":"yes","lightbox_enable_counter":"yes","lightbox_enable_fullscreen":"yes","lightbox_enable_zoom":"yes","lightbox_enable_share":"yes","lightbox_title_src":"title","lightbox_description_src":"description"},"post":{"id":2712,"title":"New%20Detox%20%E2%80%93%20F%C3%B3rmula%20Exclusiva","excerpt":"","featuredImage":false}};
+</script>
+<script type="rocketlazyloadscript" src='wp-content/plugins/elementor/assets/js/frontend.min%EF%B9%96ver=3.7.6.js' id='elementor-frontend-js' defer></script>
+<script type="rocketlazyloadscript" src='wp-content/plugins/elementor-pro/assets/js/elements-handlers.min%EF%B9%96ver=3.5.0.js' id='pro-elements-handlers-js' defer></script>
+<script type="rocketlazyloadscript" src='wp-content/plugins/elementor-pro/assets/lib/sticky/jquery.sticky.min%EF%B9%96ver=3.5.0.js' id='e-sticky-js' defer></script>
+<script type="rocketlazyloadscript" src='wp-includes/js/underscore.min%EF%B9%96ver=1.13.4.js' id='underscore-js' defer></script>
+<script id='wp-util-js-extra'>
+var _wpUtilSettings = {"ajax":{"url":"\/wp-admin\/admin-ajax.php"}};
+</script>
+<script type="rocketlazyloadscript" src='wp-includes/js/wp-util.min%EF%B9%96ver=6.1.1.js' id='wp-util-js' defer></script>
+<script id='wpforms-elementor-js-extra'>
+var wpformsElementorVars = {"captcha_provider":"recaptcha","recaptcha_type":"v2"};
+</script>
+<script type="rocketlazyloadscript" src='wp-content/plugins/wpforms/assets/js/integrations/elementor/frontend.min%EF%B9%96ver=1.7.1.1.js' id='wpforms-elementor-js' defer></script>
+	<script>class RocketElementorAnimation{constructor(){this.deviceMode=document.createElement("span"),this.deviceMode.id="elementor-device-mode",this.deviceMode.setAttribute("class","elementor-screen-only"),document.body.appendChild(this.deviceMode)}_detectAnimations(){let t=getComputedStyle(this.deviceMode,":after").content.replace(/"/g,"");this.animationSettingKeys=this._listAnimationSettingsKeys(t),document.querySelectorAll(".elementor-invisible[data-settings]").forEach(t=>{const e=t.getBoundingClientRect();if(e.bottom>=0&&e.top<=window.innerHeight)try{this._animateElement(t)}catch(t){}})}_animateElement(t){const e=JSON.parse(t.dataset.settings),i=e._animation_delay||e.animation_delay||0,n=e[this.animationSettingKeys.find(t=>e[t])];if("none"===n)return void t.classList.remove("elementor-invisible");t.classList.remove(n),this.currentAnimation&&t.classList.remove(this.currentAnimation),this.currentAnimation=n;let s=setTimeout(()=>{t.classList.remove("elementor-invisible"),t.classList.add("animated",n),this._removeAnimationSettings(t,e)},i);window.addEventListener("rocket-startLoading",function(){clearTimeout(s)})}_listAnimationSettingsKeys(t="mobile"){const e=[""];switch(t){case"mobile":e.unshift("_mobile");case"tablet":e.unshift("_tablet");case"desktop":e.unshift("_desktop")}const i=[];return["animation","_animation"].forEach(t=>{e.forEach(e=>{i.push(t+e)})}),i}_removeAnimationSettings(t,e){this._listAnimationSettingsKeys().forEach(t=>delete e[t]),t.dataset.settings=JSON.stringify(e)}static run(){const t=new RocketElementorAnimation;requestAnimationFrame(t._detectAnimations.bind(t))}}document.addEventListener("DOMContentLoaded",RocketElementorAnimation.run);</script></body>
+</html>
+
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1669735296 -->
